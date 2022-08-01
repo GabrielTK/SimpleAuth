@@ -12,14 +12,22 @@ architectury {
 }
 
 loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+    forge {
+        convertAccessWideners = true
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+        mixinConfig "mixins.simpleauth.json"
+
+    }
+
     // Enable this for yarn to work
     //useFabricMixin = true
-    mixinConfigs = ["mixins.simpleauth.json"]
-    useFabricMixin = true
+
+
 }
 
 dependencies {
-    forge("net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}")
+    forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
 
     implementation(project(path: ":common")) {
         transitive = false
